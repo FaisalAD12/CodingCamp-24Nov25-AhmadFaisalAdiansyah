@@ -119,14 +119,14 @@ document.addEventListener('DOMContentLoaded', () => {
   e.preventDefault();
 
   const text = taskInput.value.trim();
-  const dateVal = dateInput.value.trim();
+  const dateVal = dateInput.value;
 
   // VALIDATION
-  if (!text) {
+  if (text === "") {
     alert("Task cannot be empty!");
     return;
   }
-  if (!dateVal) {
+  if (dateVal === "" || dateVal === null) {
     alert("Please select a date!");
     return;
   }
@@ -140,10 +140,10 @@ document.addEventListener('DOMContentLoaded', () => {
     status: statusVal
   });
 
-  // reset form
-  taskInput.value = '';
-  dateInput.value = '';
-  statusInput.value = 'active';
+  // Reset form
+  taskInput.value = "";
+  dateInput.value = "";
+  statusInput.value = "active";
 
   save();
   render();
