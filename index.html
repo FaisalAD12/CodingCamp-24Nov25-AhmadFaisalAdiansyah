@@ -4,37 +4,72 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>To‑Do List</title>
+    <title>To-Do List</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div class="wrap">
-        <header>
-            <h1>To‑Do List</h1>
-            <button id="themeToggle" class="theme-toggle" aria-pressed="false">
-                <span id="themeIcon"> </span>
-                <span id="themeLabel">Dark</span>
-            </button>
-        </header>
-        <div class="card">
-            <form id="taskForm">
-                <input id="taskInput" type="text" placeholder="Tambahkan tugas baru...">
+    <main class="container">
+        <h1 class="title">To-Do List</h1>
+
+        <section class="controls">
+            <form id="taskForm" class="add-form" autocomplete="off">
+                <input id="taskInput" type="text" placeholder="Masukkan tugas..." required>
                 <input id="dateInput" type="date">
-                <button id="addBtn" type="submit">Tambah</button>
+                <select id="statusInput" aria-label="status">
+                    <option value="active">Active</option>
+                    <option value="done">Done</option>
+                </select>
+                <button type="submit" class="btn add">+</button>
             </form>
-            <ul id="taskList"></ul>
-            <div class="small">
+
+            <div class="filters-row">
                 <div class="filters">
-                    <button class="filter active" data-filter="all">Semua</button>
-                    <button class="filter" data-filter="active">Aktif</button>
-                    <button class="filter" data-filter="completed">Selesai</button>
+                    <button class="btn filter active" data-filter="all">SHOW ALL</button>
+                    <button class="btn filter" data-filter="active">ACTIVE</button>
+                    <button class="btn filter" data-filter="done">DONE</button>
                 </div>
-                <button id="clearCompleted">Bersihkan</button>
+
+                <div class="right-actions">
+                    <input id="dateFilter" type="date" title="Filter by date">
+                    <button id="clearDate" class="btn small">CLEAR DATE</button>
+                    <button id="deleteAll" class="btn danger">DELETE ALL</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="table-wrap">
+            <table class="task-table" aria-live="polite">
+                <thead>
+                    <tr>
+                        <th>TASK</th>
+                        <th>DATE</th>
+                        <th>STATUS</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody id="taskBody">
+                    <tr class="empty-row">
+                        <td colspan="4">No task found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Modal confirm -->
+        <div id="confirmModal" class="modal hidden">
+            <div class="modal-card">
+                <p>Apakah Anda yakin ingin menghapus semua task?</p>
+                <div class="modal-actions">
+                    <button id="cancelDel" class="btn">Cancel</button>
+                    <button id="confirmDel" class="btn danger">Delete</button>
+                </div>
             </div>
         </div>
-        <p class="info">Tugas dan tema tersimpan di localStorage.</p>
-    </div>
+
+    
+    </main>
+
     <script src="js/script.js"></script>
 </body>
 
