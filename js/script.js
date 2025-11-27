@@ -116,15 +116,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // add
   form.addEventListener('submit', e => {
-    e.preventDefault();
-    const text = taskInput.value.trim();
-    if (!text) return;
-    const dateVal = dateInput.value || '';
-    const statusVal = statusInput.value || 'active';
-    tasks.push({ id: Date.now().toString(36), text, date: dateVal, status: statusVal });
-    taskInput.value = ''; dateInput.value = ''; statusInput.value = 'active';
-    save(); render();
+  e.preventDefault();
+
+  const text = taskInput.value.trim();
+  const dateVal = dateInput.value.trim();
+
+  // VALIDATION
+  if (!text) {
+    alert("Task cannot be empty!");
+    return;
+  }
+  if (!dateVal) {
+    alert("Please select a date!");
+    return;
+  }
+
+  const statusVal = statusInput.value || 'active';
+
+  tasks.push({
+    id: Date.now().toString(36),
+    text,
+    date: dateVal,
+    status: statusVal
   });
+
+  // reset form
+  taskInput.value = '';
+  dateInput.value = '';
+  statusInput.value = 'active';
+
+  save();
+  render();
+});
 
   // filters
   filters.forEach(btn => btn.addEventListener('click', () => {
